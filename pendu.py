@@ -1,7 +1,4 @@
 import pygame
-from pygame.draw import*
-
-import pygame
 from pygame.locals import *
 import random
 
