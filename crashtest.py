@@ -75,11 +75,26 @@ while running:
     text = font.render(f"Tu as {nb_essais} essais. Devine une lettre : {mot_a_afficher}", True, BLACK)
     screen.blit(text, (100, 500))
 
-    if nb_essais == 0 or mot_a_afficher == mot:
-        text_end = font.render(f"Dommage, le mot était '{mot}'. Voulez-vous rejouer ? (o/n)", True, RED)
+    if nb_essais == 0: 
+        text_end = font.render(f"Dommage... Le mot était '{mot}'. Voulez-vous rejouer ? (o/n)", True, RED)
         screen.blit(text_end, (20, 400))
         pygame.display.flip()
-
+        wait_for_input = True
+        while wait_for_input:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_o:  # Appuyer sur la touche 'o' pour recommencer
+                        mot = random.choice(mots)
+                        lettres_verifiees = set()
+                        nb_essais = 11
+                        wait_for_input = False
+                    elif event.key == pygame.K_n:  # Appuyer sur la touche 'n' pour quitter
+                        running = False
+                        wait_for_input = False
+    elif mot_a_afficher == mot:
+        text_end = font.render(f"Bravo! Voulez-vous rejouer ? (o/n)", True, GREEN)
+        screen.blit(text_end, (20, 400))
+        pygame.display.flip()
         wait_for_input = True
         while wait_for_input:
             for event in pygame.event.get():
