@@ -29,6 +29,52 @@ def add_word_to_list(): # Définit une fonction pour ajouter un mot à la liste
         file.write("\n" + nouveau_mot) # Ajoute le nouveau mot à la fin du fichier #\n permet de passer à la ligne suivante
     print(f"Le mot '{nouveau_mot}' a été ajouté à la liste.") # Affiche un message de confirmation dans la console
 
+def capture_text():
+    text = ""
+    font = pygame.font.Font(None, 36)
+    input_box = pygame.Rect(100, 100, 140, 32)
+    color_inactive = pygame.Color('lightskyblue3')
+    color_active = pygame.Color('dodgerblue2')
+    color = color_inactive
+    active = False
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if input_box.collidepoint(event.pos):
+                    active = not active
+                else:
+                    active = False
+                color = color_active if active else color_inactive
+            if event.type == pygame.KEYDOWN:
+                if active:
+                    if event.key == pygame.K_RETURN:
+                        with open("mot.txt", "a") as file:
+                            file.write("\n" + text)
+                        print(f"Le mot '{text}' a été ajouté à la liste.")
+                        return
+                    elif event.key == pygame.K_BACKSPACE:
+                        text = text[:-1]
+                    else:
+                        text += event.unicode
+
+        screen.fill((30, 30, 30))
+        txt_surface = font.render(text, True, color)
+        width = max(200, txt_surface.get_width()+10)
+        input_box.w = width
+        screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
+        pygame.draw.rect(screen, color, input_box, 2)
+        pygame.display.flip()
+        clock.tick(30)
+
+# Modifier la fonction add_word_to_list pour lancer la capture de texte
+def add_word_to_list():
+    capture_text()
+
+
 def start_the_game():# Chargement des mots depuis le fichier 'mot.txt'
     with open("mot.txt", "r") as file: # Ouvre le fichier 'mot.txt' en mode lecture
         mots = file.read().split() # Lit le contenu du fichier et le stocke dans une liste 'mots'
