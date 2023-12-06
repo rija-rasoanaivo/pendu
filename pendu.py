@@ -4,6 +4,7 @@ import random
 
 pygame.init()
 screen = pygame.display.set_mode((800, 400), RESIZABLE)
+
 BLACK = (0, 0, 0)
 GREY = (127, 127, 127)
 WHITE = (255, 255, 255)
