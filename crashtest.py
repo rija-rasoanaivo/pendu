@@ -39,21 +39,21 @@ def capture_text():
     active = False
 
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if input_box.collidepoint(event.pos):
-                    active = not active
+        for event in pygame.event.get(): # Pour chaque événement Pygame #pygame.event.get() permet de récupérer les événements Pygame
+            if event.type == pygame.QUIT: # Si l'événement est de type 'QUIT' (fermeture de la fenêtre) 
+                pygame.quit() # Ferme la fenêtre Pygame #pygame.quit() permet de fermer la fenêtre Pygame
+                quit() # Quitte le programme #quit() permet de quitter le programme
+            if event.type == pygame.MOUSEBUTTONDOWN: # Si l'événement est de type 'MOUSEBUTTONDOWN' (appui sur un bouton de la souris)
+                if input_box.collidepoint(event.pos): # Si le clic est sur la zone de saisie #.collidepoint permet de vérifier si un point est dans un rectangle #event.pos est la position du clic
+                    active = not active # Change l'état de la zone de saisie #not permet de changer l'état de la zone de saisie
                 else:
-                    active = False
-                color = color_active if active else color_inactive
-            if event.type == pygame.KEYDOWN:
+                    active = False # Désactive la zone de saisie
+                color = color_active if active else color_inactive 
+            if event.type == pygame.KEYDOWN: # Si l'événement est de type 'KEYDOWN' (appui sur une touche)
                 if active:
                     if event.key == pygame.K_RETURN:
-                        with open("mot.txt", "a") as file:
-                            file.write("\n" + text)
+                        with open("mots.txt", "a") as file: # Ouvre le fichier 'mot.txt' en mode écriture #a permet d'ajouter du texte à la fin du fichier
+                            file.write("\n" + text) # Ajoute le texte à la fin du fichier #\n permet de passer à la ligne suivante
                         print(f"Le mot '{text}' a été ajouté à la liste.")
                         return
                     elif event.key == pygame.K_BACKSPACE:
@@ -78,7 +78,7 @@ def set_difficulty(value, difficulty):
     global mots, lettres_tapees  # Pour accéder à ces variables globales
 
     # Charger les mots depuis le fichier 'mot.txt'
-    with open("mot.txt", "r") as file:
+    with open("mots.txt", "r") as file:
         all_words = file.read().split()  # Lire tous les mots du fichier
 
     if difficulty == 1:  # Difficulté difficile (mots de plus de 10 lettres)
@@ -94,7 +94,7 @@ def add_word_to_list():
 
 
 def start_the_game():# Chargement des mots depuis le fichier 'mot.txt'
-    with open("mot.txt", "r") as file: # Ouvre le fichier 'mot.txt' en mode lecture
+    with open("mots.txt", "r") as file: # Ouvre le fichier 'mot.txt' en mode lecture
         mots = file.read().split() # Lit le contenu du fichier et le stocke dans une liste 'mots'
 
     # Choix aléatoire d'un mot dans la liste de mots
