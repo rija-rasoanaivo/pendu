@@ -29,23 +29,23 @@ def convert_to_lowercase(file_name):
     with open(file_name, 'w') as file:
         file.write(content_lower)  # Réécrire le fichier avec le texte converti en minuscules
 
-def capture_text():
+def capture_text(): # Définit une fonction pour capturer du texte #capture_text est une fonction #() permet d'appeler la fonction 
     text = ''
-    font = pygame.font.Font( None, 36)
-    input_box = pygame.Rect(300, 300, 140, 50)
-    color_inactive = pygame.Color('lightskyblue3')
-    color_active = pygame.Color('dodgerblue2')
-    color = color_inactive
-    active = False
+    font = pygame.font.Font( None, 36) #pygame.font.Font permet de charger une police #None est la police par défaut #36 est la taille de la police
+    input_box = pygame.Rect(300, 300, 140, 50)  #pygame.Rect permet de créer un rectangle #300 est la position en x #300 est la position en y #140 est la largeur #50 est la hauteur
+    color_inactive = pygame.Color('lightskyblue3') #pygame.Color permet de créer une couleur #lightskyblue3 est une couleur prédéfinie
+    color_active = pygame.Color('dodgerblue2') #pygame.Color permet de créer une couleur #dodgerblue2 est une couleur prédéfinie 
+    color = color_inactive # Définit la couleur du rectangle #color est une variable qui prend la valeur de color_inactive
+    active = False # Définit une variable pour savoir si le champ de saisie est actif #False signifie que le champ de saisie n'est pas actif
 
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if input_box.collidepoint(event.pos):
-                    active = not active
+    while True: # Tant que le champ de saisie est actif
+        for event in pygame.event.get(): # Pour chaque événement Pygame #pygame.event.get() permet de récupérer les événements Pygame 
+            if event.type == pygame.QUIT: # Si l'événement est de type 'QUIT' (fermeture de la fenêtre)
+                pygame.quit() # Ferme la fenêtre Pygame
+                quit() # Quitte le programme
+            if event.type == pygame.MOUSEBUTTONDOWN:  # Si l'événement est de type 'MOUSEBUTTONDOWN' (appui sur un bouton de la souris)
+                if input_box.collidepoint(event.pos): # Si le clic est dans le rectangle
+                    active = not active # Inverse la valeur de la variable 'active' #not permet d'inverser la valeur d'une variable
                 else:
                     active = False
                 color = color_active if active else color_inactive
@@ -210,7 +210,7 @@ menu = pygame_menu.Menu('Jeu du pendu', 400, 300, #pygame_menu.Menu permet de cr
                        theme=pygame_menu.themes.THEME_BLUE) #pygame_menu.themes permet de choisir un thème pour le menu #pygame_menu.themes.THEME_BLUE est un thème prédéfini
 menu.add.text_input('Nom :', default='Rija Rasoanaivo') #pygame_menu.Menu.add.text_input permet d'ajouter un champ de saisie de texte #default permet de définir une valeur par défaut
 menu.add.selector('Difficulté :', [('Hard', 1), ('Easy', 2)], onchange=set_difficulty) 
-menu.add.button('Jouer', start_the_game)
-menu.add.button("Ajouter un mot", add_word_to_list)
-menu.add.button('Quitter', pygame_menu.events.EXIT)
+menu.add.button('Jouer', start_the_game)#pygame_menu. Menu.add.button permet d'ajouter un bouton #start_the_game est une fonction
+menu.add.button("Ajouter un mot", add_word_to_list) #pygame_menu.Menu.add.button permet d'ajouter un bouton #add_word_to_list est une fonction
+menu.add.button('Quitter', pygame_menu.events.EXIT) #pygame_menu.Menu.add.button permet d'ajouter un bouton #pygame_menu.events.EXIT permet de quitter le menu
 menu.mainloop(screen) #pygame_menu.Menu.mainloop permet d'afficher le menu #screen est la surface sur laquelle afficher le menu
