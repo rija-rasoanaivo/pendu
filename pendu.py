@@ -94,7 +94,7 @@ def add_word_to_list():
 
 
 def start_the_game():# Chargement des mots depuis le fichier 'mot.txt'
-    with open("mot.txt", "r") as file: # Ouvre le fichier 'mot.txt' en mode lecture
+    with open("mots.txt", "r") as file: # Ouvre le fichier 'mot.txt' en mode lecture
         mots = file.read().split() # Lit le contenu du fichier et le stocke dans une liste 'mots'
 
     # Choix aléatoire d'un mot dans la liste de mots
